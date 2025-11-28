@@ -1,1 +1,27 @@
+version: '3.8'
 
+services:
+  cesta_compras:
+    build: .
+    container_name: cesta_compras
+    ports:
+      - "8501:8501"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=cesta_compras
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_PORT=5432
+      - URI_MONGO=${URI_MONGO}
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - financas
+
+volumes:
+  pgdata:
+
+networks:
+  financas:
+    external: true
